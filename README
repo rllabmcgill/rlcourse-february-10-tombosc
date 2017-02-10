@@ -1,0 +1,4 @@
+The repo contains: 
+- The slides for the presentation in slides.pdf (focuses on variance analysis of the paper)
+- Plots of value functions and policies in plots/ (based on the gambler's problem)
+- Code for sarsa and expected sarsa implementation on the gambler's problem.
