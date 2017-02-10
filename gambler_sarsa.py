@@ -52,9 +52,11 @@ def sarsa(max_iter, alpha, eps, expected=False, start_from=None):
     s,a = init_s_a()
 
     pi = epsilon_greedify(pi, eps) 
-    n_episode = 1
+    n_rewards = 0
     for i in range(1,max_iter):
         s_n, r = step(s, a, p_h, n)
+        if r == 1:
+            n_rewards += 1
         # it's OK to call epsilon_greedify on the q array
         pi[1:,1:] = epsilon_greedify(q[1:,1:], eps) 
         a_n = sample_action(s_n, pi)
@@ -63,20 +65,20 @@ def sarsa(max_iter, alpha, eps, expected=False, start_from=None):
         else:
             q[a,s] += alpha * (r + q[a_n,s_n] - q[a,s])
 
-        if s_n == 0 or s_n == n: # start new episode
+        if s_n == 0 or s_n == n or expected: # start new episode
             s,a = init_s_a()
-            n_episode += 1
         else:
             s = s_n
             a = a_n
 
-    #print "total episode seen:", n_episode
+    print "total rewards:", n_rewards
     return q, greedify(q)
 
-for alpha in np.arange(0.1, 1.0, 0.1): # grid search for learning rate
-    max_iter = 300000
-    eps = 0.05
-    q, pi = sarsa(max_iter, alpha, eps, expected=False, start_from=None)
+for alpha in np.arange(0.1, 1.1, 0.1): # grid search for learning rate
+    max_iter = 100000
+    eps = 0.1
+    print "Exp sarsa with alpha=", alpha
+    q, pi = sarsa(max_iter, alpha, eps, expected=True, start_from=None)
 
     f, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(14,5))
     im_1 = ax1.imshow(q[1:,1:n], interpolation='None', origin='lower',
@@ -89,5 +91,5 @@ for alpha in np.arange(0.1, 1.0, 0.1): # grid search for learning rate
     f.colorbar(im_2, ax=ax2)
     ax2.set_title("Target policy pi")
     #plt.show()
-    f.savefig("gambler_sarsa_"+str(max_iter)+"_it_p_03_alph_" + 
-              str(alpha) + "_eps_"+str(eps)+".png")
+    #f.savefig("gambler_sarsa_"+str(max_iter)+"_it_p_03_alph_" + 
+    #          str(alpha) + "_eps_"+str(eps)+".png")

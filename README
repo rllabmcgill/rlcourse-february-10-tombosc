@@ -2,3 +2,4 @@ The repo contains:
 - The slides for the presentation in slides.pdf (focuses on variance analysis of the paper)
 - Plots of value functions and policies in plots/ (based on the gambler's problem)
 - Code for sarsa and expected sarsa implementation on the gambler's problem.
+- 2 Learning_rate_grid_search_*.txt files that were output in order to find a good learning rate.

@@ -1,0 +1,23 @@
+Result of running gambler_sarsa with several alpha
+We pick the learning rate that allows to see the most rewards.
+
+Sarsa with alpha= 0.1
+total rewards: 4647
+Sarsa with alpha= 0.2
+total rewards: 3523
+Sarsa with alpha= 0.3
+total rewards: 3248
+Sarsa with alpha= 0.4
+total rewards: 2927
+Sarsa with alpha= 0.5
+total rewards: 2642
+Sarsa with alpha= 0.6
+total rewards: 2437
+Sarsa with alpha= 0.7
+total rewards: 2397
+Sarsa with alpha= 0.8
+total rewards: 2452
+Sarsa with alpha= 0.9
+total rewards: 2447
+
+Good alpha: 0.1
